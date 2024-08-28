@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    background: rgb(0, 57, 101);
+    color: white;
+    margin: 20px;
+}
+
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    display: block;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background: rgb(0, 73, 128);
+}
+
+
+/* Page 2 */
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 10px;
+}
+
+.song-wrapper {
+    background-color: rgb(0, 73, 128);
+    border-radius: 5px;
+    padding: 10px;
+    min-width: 300px;
+    display: flex;
+    flex-grow: 1;
+}
+
+.song-wrapper>img {
+    height: 140px;
+    width: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+h2,
+h4 {
+    margin: 0;
+}
+
+h4 {
+    color: rgb(100, 153, 194);
+    font-weight: 400;
+}
+
+p,
+.rating-wrapper {
+    margin: 5px 0;
+}
+
+#add-song-form {
+    padding: 20px;
+    margin: 0 auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#rating,
+.rating-wrapper {
+    display: flex;
+    flex-direction: row-reverse;
+    width: fit-content;
+}
+
+.rating-wrapper {
+    flex-direction: row;
+}
+
+.star,
+.star-display {
+    display: block;
+    height: 30px;
+    width: 30px;
+    position: relative;
+}
+
+.star-display {
+    height: 20px;
+    width: 20px;
+}
+
+.star::before,
+.star-display::before {
+    position: absolute;
+    content: '';
+    height: 90%;
+    width: 90%;
+    background: #E1E2E1;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#rating input[type="radio"] {
+    display: none;
+}
+
+#rating input[type="radio"]:checked~label::before {
+    background: #00A5F9;
+}
+
+#rating label:hover::before,
+#rating label:hover~label::before {
+    background: #8DD9FF;
+}
+
+.star-display:has(~ .fill)::before,
+.star-display.fill::before {
+    background: #00A5F9;
+}
+
+#show-form,
+#add-song-form button[type="submit"],
+.delete-btn {
+    display: block;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    background: rgb(0, 37, 65);
+    text-align: center;
+    border: none;
+    cursor: pointer;
+}

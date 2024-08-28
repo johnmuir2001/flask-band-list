@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>My Favourite Songs</h1>
+<p>his is a list of some of my favourite songs, feel free to add some to the list!</p>
+
+{% if form_open %}
+<form action="/addBand" method="post" id="add-song-form" enctype="multipart/form-data">
+    <label for="song_add">Song Title</label>
+    <input type="text" name="add_song" id="song_add" placeholder="Enter a song!" required><br>
+
+    <label for="album_add">Album</label>
+    <input type="text" name="add_album" id="album_add" placeholder="Enter the album!" required><br>
+
+    <label for="artist_add">Artist</label>
+    <input type="text" name="add_artist" id="artist_add" placeholder="Enter the artist!" required><br>
+
+    <div id="rating">
+        <input type="radio" id="five" name="add_rating" value="5" required />
+        <label class="star" for="five"></label>
+        <input type="radio" id="four" name="add_rating" value="4" />
+        <label class="star" for="four"></label>
+        <input type="radio" id="three" name="add_rating" value="3" />
+        <label class="star" for="three"></label>
+        <input type="radio" id="two" name="add_rating" value="2" />
+        <label class="star" for="two"></label>
+        <input type="radio" id="one" name="add_rating" value="1" />
+        <label class="star" for="one"></label>
+    </div>
+
+    <label for="img_add">Add image</label>
+    <input type="file" name="add_img" id="img_add">
+
+    <button type="submit">Submit Song</button>
+</form>
+{% else %}
+
+<a id="show-form" href="{{ url_for('my_view.openForm') }}">Add Song</a>
+
+{% endif %}
+
+<p> Filter results:
+<form action="/filterBands" method="post">
+    <select name="added_rating">
+        <option value="1">1/5</option>
+        <option value="2">2/5</option>
+        <option value="3">3/5</option>
+        <option value="4">4/5</option>
+        <option value="5">5/5</option>
+        <option value="All">All</option>
+    </select>
+    <input type="submit">
+</form>
+</p>
+
+<section>
+    {% for song in favourite_songs %}
+    <div class="song-wrapper">
+        {% if song.image != None %}
+        <img src="{{ url_for('static', filename=song.image) }}" alt="">
+        {% endif %}
+        <aside>
+            <h2>{{ song.song }}</h2>
+            <h4>{{ song.album }}</h4>
+            <p>{{ song.artist }}</p>
+            <div class="rating-wrapper">
+                {% for star in ["1", "2", "3", "4", "5"] %}
+                {% if star == song.rating %} <div class="star-display fill">
+                </div>
+                {% else %}
+                <div class="star-display"></div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <form action="/delete" method="post" style="display:inline;">
+                <input type="hidden" name="song" value="{{ song.song }}">
+                <button class="delete-btn" type="submit">Delete</button>
+            </form>
+        </aside>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}
